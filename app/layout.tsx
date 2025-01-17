@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { ThemeProvider } from "next-themes";
+import Navbar from "@/components/navigation/navbar";
 
 const inter = localFont({
   src: "./fonts/InterVF.ttf",
@@ -18,9 +20,9 @@ export const metadata: Metadata = {
   title: "DevExchange",
   description:
     "Təcrübəli proqramçıların və yeni başlayanların bir araya gəldiyi, suallarınızı verə və cavabları paylaşa biləcəyiniz bir platforma! Proqramlaşdırma suallarınıza cavab tapın, biliyi paylaşın və dünya üzrə inkişaf etdiricilər ilə əməkdaşlıq edin. Web inkişafı, mobil tətbiq inkişafı, alqoritmlər, verilənlər strukturları və daha çox mövzularda dərinləşin. Həmçinin, bu platforma, proqramlaşdırma biliklərinizi inkişaf etdirmək və problemləri sürətli həll etmək üçün ideal yerdir.",
-    icons:{
-      icon:"./imagessite-logo.svg",
-    }
+  icons: {
+    icon: "./imagessite-logo.svg",
+  },
 };
 
 export default function RootLayout({
@@ -29,11 +31,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${inter.className} ${spaceGrotesk.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
