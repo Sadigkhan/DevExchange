@@ -1,4 +1,3 @@
-
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import js from "@eslint/js";
@@ -12,14 +11,14 @@ const compat = new FlatCompat({
   allConfig: js.configs.all,
 });
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default [
+// Assign the configuration to a named variable
+const eslintConfig = [
   ...compat.extends(
-      "next/core-web-vitals",
-      "next/typescript",
-      "standard",
-      "plugin:tailwindcss/recommended",
-      "prettier"
+    "next/core-web-vitals",
+    "next/typescript",
+    "standard",
+    "plugin:tailwindcss/recommended",
+    "prettier"
   ),
   {
     rules: {
@@ -27,3 +26,6 @@ export default [
     },
   },
 ];
+
+// Export the named variable as the default export
+export default eslintConfig;
