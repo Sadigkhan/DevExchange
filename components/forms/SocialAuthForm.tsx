@@ -35,7 +35,7 @@ const SocialAuthForm = () => {
     <div className="mt-10 flex flex-wrap gap-2.5">
       <Button className={buttonClass} onClick={() => handleSignIn("github")}>
         <Image
-          src="./icons/github.svg"
+          src="/icons/github.svg"
           alt="Github Logo"
           width={20}
           height={20}
@@ -46,7 +46,7 @@ const SocialAuthForm = () => {
 
       <Button className={buttonClass} onClick={() => handleSignIn("google")}>
         <Image
-          src="./icons/google.svg"
+          src="/icons/google.svg"
           alt="Google Logo"
           width={20}
           height={20}
