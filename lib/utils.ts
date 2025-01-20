@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 
-export const getDevIconsClassName=(techName:string)=>{
+export const getDeviconClassName=(techName:string)=>{
   const normalizedTechName=techName.replace(/[ .]/g,"").toLocaleLowerCase();
 
   return techMap[normalizedTechName]
