@@ -1,10 +1,51 @@
 // import { auth } from "@/auth";
+import LocalSearch from "@/components/search/LocalSearch";
 import { Button } from "@/components/ui/button";
 import ROUTES from "@/constants/routes";
 import Link from "next/link";
 import React from "react";
 
-const Home = async () => {
+interface SearchParams {
+  searchParams: Promise<{ [key: string]: string }>;
+}
+
+const questions = [
+  {
+    _id: "1",
+    title: "How to learn React?",
+    description: "I want to learn React, can anyone help me?",
+    tags: [
+      { _id: "1", name: "React" },
+      { _id: "2", name: "JavaScript" },
+    ],
+    author: { _id: "1", name: "John Doe" },
+    upvotes: 10,
+    answers: 5,
+    views: 100,
+    createdAt: new Date(),
+  },
+  {
+    _id: "2",
+    title: "How to learn JavaScript?",
+    description: "I want to learn JavaScript, can anyone help me?",
+    tags: [
+      { _id: "1", name: "React" },
+      { _id: "2", name: "JavaScript" },
+    ],
+    author: { _id: "1", name: "John Doe" },
+    upvotes: 10,
+    answers: 5,
+    views: 100,
+    createdAt: new Date(),
+  },
+];
+
+const Home = async ({ searchParams }: SearchParams) => {
+  const { query="" } = await searchParams;
+
+  const filteredQuestions = questions.filter((question) =>
+    question.title.toLowerCase().includes(query?.toLowerCase())
+  );
   // const session = await auth();
   return (
     <>
@@ -17,15 +58,19 @@ const Home = async () => {
           <Link href={ROUTES.ASK_QUESTION}>Ask A Question</Link>
         </Button>
       </section>
-
-      <section className="mt-11">LocalSearch</section>
-      Home Filter
-
+      <section className="mt-11">
+        <LocalSearch
+          route="/"
+          imgSrc="/icons/search.svg"
+          placeholder="Search questions ..."
+          otherClasses="flex-1"
+        />
+      </section>
+      {/* Home Filter */}
       <div className="mt-10 flex w-full flex-col gap-6">
-        <p>Question card 1</p>
-        <p>Question card 1</p>
-        <p>Question card 1</p>
-        <p>Question card 1</p>
+        {filteredQuestions.map((question) => (
+          <h1 key={question._id}>{question.title}</h1>
+        ))}
       </div>
     </>
   );
