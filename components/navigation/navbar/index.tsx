@@ -13,7 +13,7 @@ const Navbar = () => {
           src="/images/site-logo.svg"
           width={23}
           height={23}
-          alt="DevFlow Logo"
+          alt="devexchange Logo"
         />
 
         <p className="h2-bold font-space-grotesk text-dark-100 dark:text-light-900 max-sm:hidden">
@@ -26,7 +26,7 @@ const Navbar = () => {
       <div className="flex-between gap-5">
         <Theme />
 
-        <MobileNavigation/>
+        <MobileNavigation />
       </div>
     </nav>
   );
