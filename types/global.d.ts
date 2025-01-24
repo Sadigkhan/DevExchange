@@ -1,15 +1,15 @@
-interface Tag{
+interface Tag {
     _id: string;
     name: string;
-}
-
-interface Author {
+  }
+  
+  interface Author {
     _id: string;
     name: string;
     image: string;
-}
-
-interface Question {
+  }
+  
+  interface Question {
     _id: string;
     title: string;
     tags: Tag[];
@@ -18,4 +18,5 @@ interface Question {
     upvotes: number;
     answers: number;
     views: number;
-}
+    createdAt: Date;
+  }
