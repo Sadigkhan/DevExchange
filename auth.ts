@@ -1,13 +1,14 @@
+import bcrypt from "bcryptjs";
 import NextAuth from "next-auth";
+import Credentials from "next-auth/providers/credentials";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
-import { api } from "./lib/api";
-import { ActionResponse } from "./types/global";
+
 import { IAccountDoc } from "./database/account.model";
-import { SignInSchema } from "./lib/validations";
 import { IUserDoc } from "./database/user.model";
-import bcrypt from "bcryptjs";
-import Credentials from "next-auth/providers/credentials";
+import { api } from "./lib/api";
+import { SignInSchema } from "./lib/validations";
+import { ActionResponse } from "./types/global";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -20,12 +21,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (validatedFields.success) {
           const { email, password } = validatedFields.data;
 
-          const { data: existingAccount, success } =
-            (await api.accounts.getByProvider(
-              email
-            )) as ActionResponse<IAccountDoc>;
+          const { data: existingAccount } = (await api.accounts.getByProvider(
+            email
+          )) as ActionResponse<IAccountDoc>;
 
-          if (!success || !existingAccount) return null;
+          if (!existingAccount) return null;
 
           const { data: existingUser } = (await api.users.getById(
             existingAccount.userId.toString()
@@ -38,13 +38,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             existingAccount.password!
           );
 
-          if(isValidPassword){
+          if (isValidPassword) {
             return {
               id: existingUser.id,
               name: existingUser.name,
               email: existingUser.email,
               image: existingUser.image,
-            }
+            };
           }
         }
         return null;
@@ -74,7 +74,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       return token;
     },
-    async signIn({ user, account, profile }) {
+    async signIn({ user, profile, account }) {
       if (account?.type === "credentials") return true;
       if (!account || !user) return false;
 
