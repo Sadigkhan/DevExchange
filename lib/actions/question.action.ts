@@ -9,12 +9,12 @@ import Tag from "@/database/tag.model";
 import action from "../handlers/action";
 import handleError from "../handlers/error";
 import { AskQuestionSchema } from "../validations";
-import { ActionResponse, ErrorResponse } from "@/types/global";
+import { ActionResponse, ErrorResponse, Question as QuestionInterface} from "@/types/global";
 
 export async function createQuestion(
   // eslint-disable-next-line no-undef
   params: CreateQuestionParams
-): Promise<ActionResponse> {
+): Promise<ActionResponse<QuestionInterface>> {
   const validationResult = await action({
     params,
     schema: AskQuestionSchema,

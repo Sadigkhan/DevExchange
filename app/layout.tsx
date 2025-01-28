@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import React, { ReactNode } from "react";
+import { SessionProvider } from "next-auth/react";
+import { ReactNode } from "react";
 
 import "./globals.css";
-import ThemeProvider from "@/context/Theme";
-import { Toaster } from "@/components/ui/toaster";
-import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
+import { Toaster } from "@/components/ui/toaster";
+import ThemeProvider from "@/context/Theme";
 
 const inter = localFont({
   src: "./fonts/InterVF.ttf",
@@ -21,7 +21,7 @@ const spaceGrotesk = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "devexchange",
+  title: "DevFlow",
   description:
     "A community-driven platform for asking and answering programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms, data structures, and more.",
   icons: {
