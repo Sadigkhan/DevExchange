@@ -41,6 +41,7 @@ const HomeFilter = () => {
       });
     }
 
+
     router.push(newUrl, { scroll: false });
   };
 
