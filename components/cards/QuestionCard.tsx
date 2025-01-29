@@ -6,9 +6,9 @@ import { getTimeStamp } from "@/lib/utils";
 
 import TagCard from "./TagCard";
 import Metric from "../Metric";
+import { Question, Tag } from "@/types/global";
 
 interface Props {
-  // eslint-disable-next-line no-undef
   question: Question;
 }
 
@@ -32,7 +32,6 @@ const QuestionCard = ({
       </div>
 
       <div className="mt-3.5 flex w-full flex-wrap gap-2">
-         {/* eslint-disable-next-line no-undef */}
         {tags.map((tag: Tag) => (
           <TagCard key={tag._id} _id={tag._id} name={tag.name} compact />
         ))}
@@ -40,7 +39,7 @@ const QuestionCard = ({
 
       <div className="flex-between mt-6 w-full flex-wrap gap-3">
         <Metric
-          imgUrl={author.image}
+          imgUrl={author.image ? author.image : "/icons/user.svg"}
           alt={author.name}
           value={author.name}
           title={`• asked ${getTimeStamp(createdAt)}`}
