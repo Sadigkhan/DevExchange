@@ -7,7 +7,6 @@ import QuestionCard from "@/components/cards/QuestionCard";
 import { getQuestions } from "@/lib/actions/question.action";
 import DataRenderer from "@/components/DataRenderer";
 import { EMPTY_QUESTION } from "@/constants/states";
-import { Divide } from "lucide-react";
 
 interface SearchParams {
   searchParams: Promise<{ [key: string]: string }>;
