@@ -8,7 +8,7 @@ import {
   ActionResponse,
   ErrorResponse,
   PaginatedSearchParams,
-  Question,
+  // Question,
 } from "@/types/global";
 import { GetTagQuestionsParams } from "@/types/action";
 
@@ -76,7 +76,7 @@ export const getTags = async (
 
 export const getTagQuestions = async (
   params: GetTagQuestionsParams
-): Promise<ActionResponse<{ tag: typeof Tag;questions:Question[], isNext: boolean }>> => {
+): Promise<ActionResponse<{ tag: typeof Tag;questions:typeof Question[], isNext: boolean }>> => {
   const validationResult = await action({
     params,
     schema: getTagQuestionsSchema,

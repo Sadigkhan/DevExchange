@@ -14,10 +14,18 @@ import {
   GetQuestionSchema,
   PaginatedSearchParamsSchema,
 } from "../validations";
-import { ActionResponse, ErrorResponse, PaginatedSearchParams } from "@/types/global";
+import {
+  ActionResponse,
+  ErrorResponse,
+  PaginatedSearchParams,
+} from "@/types/global";
+import {
+  CreateQuestionParams,
+  EditQuestionParams,
+  GetQuestionParams,
+} from "@/types/action";
 
 export async function createQuestion(
-  // eslint-disable-next-line no-undef
   params: CreateQuestionParams
 ): Promise<ActionResponse<IQuestionDoc>> {
   const validationResult = await action({
@@ -83,7 +91,6 @@ export async function createQuestion(
 }
 
 export async function editQuestion(
-  // eslint-disable-next-line no-undef
   params: EditQuestionParams
 ): Promise<ActionResponse<IQuestionDoc>> {
   const validationResult = await action({
@@ -191,7 +198,6 @@ export async function editQuestion(
 }
 
 export async function getQuestion(
-  // eslint-disable-next-line no-undef
   params: GetQuestionParams
 ): Promise<ActionResponse<IQuestionDoc>> {
   const validationResult = await action({

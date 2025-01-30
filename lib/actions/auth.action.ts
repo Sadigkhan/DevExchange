@@ -12,6 +12,7 @@ import handleError from "../handlers/error";
 import { SignInSchema, SignUpSchema } from "../validations";
 import { ActionResponse, ErrorResponse } from "@/types/global";
 import { NotFoundError } from "../http-errors";
+import { AuthCredentials } from "@/types/action";
 
 export async function signUpWithCredentials(
   // eslint-disable-next-line no-undef
@@ -75,7 +76,6 @@ export async function signUpWithCredentials(
 }
 
 export async function signInWithCredentials(
-  // eslint-disable-next-line no-undef
   params: Pick<AuthCredentials, "email" | "password">
 ): Promise<ActionResponse> {
   const validationResult = await action({ params, schema: SignInSchema });
