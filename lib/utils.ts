@@ -1,9 +1,9 @@
 import { techMap } from "@/constants/techMap";
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 export const techDescriptionMap: { [key: string]: string } = {
@@ -41,18 +41,16 @@ export const getTechDescription = (techName: string) => {
     : `${techName} is a technology or tool widely used in web development, providing valuable features and capabilities.`;
 };
 
-
-export const getDeviconClassName=(techName:string)=>{
-  const normalizedTechName=techName.replace(/[ .]/g,"").toLocaleLowerCase();
+export const getDeviconClassName = (techName: string) => {
+  const normalizedTechName = techName.replace(/[ .]/g, "").toLocaleLowerCase();
 
   return techMap[normalizedTechName]
     ? `${techMap[normalizedTechName]} colored`
     : "devicon-devicon-plain";
-}
-
+};
 
 export const getTimeStamp = (createdAt: Date) => {
-  const date=new Date(createdAt);
+  const date = new Date(createdAt);
   const now = new Date();
   const secondsAgo = Math.floor((now.getTime() - date.getTime()) / 1000);
 
@@ -73,4 +71,14 @@ export const getTimeStamp = (createdAt: Date) => {
     }
   }
   return "just now";
+};
+
+export const formatNumber = (number: number) => {
+  if (number >= 1000000) {
+    return `${(number / 1000000).toFixed(1)}M`;
+  } else if (number >= 1000) {
+    return `${(number / 1000).toFixed(1)}K`;
+  } else {
+    return number.toString();
+  }
 };
