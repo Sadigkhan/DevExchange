@@ -5,18 +5,18 @@ import React from "react";
 
 import TagCard from "@/components/cards/TagCard";
 import Preview from "@/components/editor/Preview";
+import AnswerForm from "@/components/forms/AnswerForm";
 import Metric from "@/components/Metric";
 import UserAvatar from "@/components/UserAvatar";
 import ROUTES from "@/constants/routes";
 import { getQuestion, incrementViews } from "@/lib/actions/question.action";
 import { formatNumber, getTimeStamp } from "@/lib/utils";
 import { RouteParams, Tag } from "@/types/global";
-import AnswerForm from "@/components/forms/AnswerForm";
 
 const QuestionDetails = async ({ params }: RouteParams) => {
   const { id } = await params;
+  
   const { success, data: question } = await getQuestion({ questionId: id });
-
   after(async () => {
     await incrementViews({ questionId: id });
   });
@@ -42,19 +42,22 @@ const QuestionDetails = async ({ params }: RouteParams) => {
               </p>
             </Link>
           </div>
+
           <div className="flex justify-end">
             <p>Votes</p>
           </div>
         </div>
+
         <h2 className="h2-semibold text-dark200_light900 mt-3.5 w-full">
           {title}
         </h2>
       </div>
+
       <div className="mb-8 mt-5 flex flex-wrap gap-4">
         <Metric
           imgUrl="/icons/clock.svg"
           alt="clock icon"
-          value={`asked ${getTimeStamp(new Date(createdAt))}`}
+          value={` asked ${getTimeStamp(new Date(createdAt))}`}
           title=""
           textStyles="small-regular text-dark400_light700"
         />
@@ -87,8 +90,8 @@ const QuestionDetails = async ({ params }: RouteParams) => {
         ))}
       </div>
 
-      <section className="my-1">
-        <AnswerForm questionId={question._id}/>
+      <section className="my-5">
+        <AnswerForm questionId={question._id} />
       </section>
     </>
   );

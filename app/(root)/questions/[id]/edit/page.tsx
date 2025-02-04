@@ -1,33 +1,42 @@
+import { notFound, redirect } from "next/navigation";
+import React from "react";
+
 import { auth } from "@/auth";
 import QuestionForm from "@/components/forms/QuestionForm";
 import ROUTES from "@/constants/routes";
 import { getQuestion } from "@/lib/actions/question.action";
 import { RouteParams } from "@/types/global";
-import { notFound, redirect } from "next/navigation";
-import React from "react";
 
-const EditQuestion =async ({params}:RouteParams) => {
+const EditQuestion = async ({ params }: RouteParams) => {
+  const { id } =await params;  // No need for 'await' on params
+  if (!id) return notFound();
 
-    const {id}=await params;
+  const session = await auth();
+  if (!session || !session.user?.id) return redirect("/sign-in");
 
-    if(!id) return notFound();
+  const { data: question, success } = await getQuestion({ questionId: id });
+  if (!success || !question) return notFound();
 
+  // Debugging Session User and Question Author
+  console.log("Question Author:", question.author, "Type:", typeof question.author);
+  console.log("Session User ID:", session.user.id, "Type:", typeof session.user.id);
+  console.log("Equality Check:", question.author._id === session.user.id);
 
+  if (question.author._id !== session.user.id) {
+    return redirect(ROUTES.QUESTION(id));  // Return to prevent execution
+  }else{
+    return (
+      <main>
+        <QuestionForm question={question} isEdit={true} />
+      </main>
+    );
+  }
 
-  const session =await auth();
-  if(!session)return redirect("/sign-in");
-
-  const {data:question,success}=await getQuestion({questionId:id});
-
-  if(!success) return notFound();
-
-  if(question?.author.toString()!==session?.user?.id) redirect(ROUTES.QUESTION(id));
-
-  return (
-    <main>
-        <QuestionForm question={question} isEdit />
-    </main>
-  );
+  // return (
+  //   <main>
+  //     <QuestionForm question={question} isEdit={true} />
+  //   </main>
+  // );
 };
 
 export default EditQuestion;

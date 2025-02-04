@@ -5,6 +5,17 @@ import mongoose, { FilterQuery } from "mongoose";
 import Question, { IQuestionDoc } from "@/database/question.model";
 import TagQuestion from "@/database/tag-question.model";
 import Tag, { ITagDoc } from "@/database/tag.model";
+import {
+  CreateQuestionParams,
+  EditQuestionParams,
+  GetQuestionParams,
+  IncrementViewsParams,
+} from "@/types/action";
+import {
+  ActionResponse,
+  ErrorResponse,
+  PaginatedSearchParams,
+} from "@/types/global";
 
 import action from "../handlers/action";
 import handleError from "../handlers/error";
@@ -15,17 +26,6 @@ import {
   IncrementViewsSchema,
   PaginatedSearchParamsSchema,
 } from "../validations";
-import {
-  ActionResponse,
-  ErrorResponse,
-  PaginatedSearchParams,
-} from "@/types/global";
-import {
-  CreateQuestionParams,
-  EditQuestionParams,
-  GetQuestionParams,
-  IncrementViewsParams,
-} from "@/types/action";
 
 export async function createQuestion(
   params: CreateQuestionParams
@@ -205,7 +205,7 @@ export async function getQuestion(
   const validationResult = await action({
     params,
     schema: GetQuestionSchema,
-    authorize: true,
+    authorize: false,
   });
 
   if (validationResult instanceof Error) {
