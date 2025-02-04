@@ -1,3 +1,8 @@
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { after } from "next/server";
+import React from "react";
+
 import TagCard from "@/components/cards/TagCard";
 import Preview from "@/components/editor/Preview";
 import Metric from "@/components/Metric";
@@ -6,20 +11,15 @@ import ROUTES from "@/constants/routes";
 import { getQuestion, incrementViews } from "@/lib/actions/question.action";
 import { formatNumber, getTimeStamp } from "@/lib/utils";
 import { RouteParams, Tag } from "@/types/global";
-import Link from "next/link";
-import { redirect } from "next/navigation";
-import { after } from "next/server";
-import React from "react";
+import AnswerForm from "@/components/forms/AnswerForm";
 
 const QuestionDetails = async ({ params }: RouteParams) => {
   const { id } = await params;
-
   const { success, data: question } = await getQuestion({ questionId: id });
 
-  after(async()=>{
+  after(async () => {
     await incrementViews({ questionId: id });
-  })
-
+  });
 
   if (!success || !question) return redirect("/404");
 
@@ -86,6 +86,10 @@ const QuestionDetails = async ({ params }: RouteParams) => {
           />
         ))}
       </div>
+
+      <section className="my-1">
+        <AnswerForm questionId={question._id}/>
+      </section>
     </>
   );
 };
