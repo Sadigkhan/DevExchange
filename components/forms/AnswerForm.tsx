@@ -6,7 +6,7 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-import { useRef, useState, useTransition } from "react";
+import { useRef, useState, useTransition, } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -101,20 +101,21 @@ const AnswerForm = ({ questionId, questionTitle, questionContent }: Props) => {
 
       const formattedAnswer = data.replace(/<br>/g, " ").toString().trim();
 
-      // Set the form value
-      form.setValue("content", formattedAnswer);
-  
-      // Trigger validation
-      await form.trigger("content");
-  
-      // Set the editor value
+    
+   
+      console.log(editorRef.current);
+
       if (editorRef.current) {
+
         editorRef.current.setMarkdown(formattedAnswer);
+        form.setValue("content", formattedAnswer);
+        form.trigger("content");
       }
+
 
       toast({
         title: "Success",
-        description: "AI generated answer has been generated",
+        description: "AI-generated answer has been created",
       });
     } catch (error) {
       toast({
