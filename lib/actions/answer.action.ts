@@ -108,7 +108,7 @@ export async function getAnswers(params: GetAnswersParams): Promise<
   try {
     const totalAnswers = await Answer.countDocuments({ question: questionId });
     const answers = await Answer.find({ question: questionId })
-      .populate("author", "_id,name,image")
+      .populate("author", "_id name image")
       .sort(sortCriteria)
       .skip(skip)
       .limit(limit);

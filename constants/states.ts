@@ -37,6 +37,15 @@ export const EMPTY_TAGS = {
   },
 };
 
+export const EMPTY_ANSWERS = {
+  title: "No Answers Found",
+  message: "The Answer board is empty. Be the first to answer.",
+  // button: {
+  //   text: "Answer",
+  //   href: ROUTES.HOME,
+  // },
+};
+
 export const EMPTY_COLLECTIONS = {
   title: "Collections Are Empty",
   message:
