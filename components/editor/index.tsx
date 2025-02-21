@@ -30,6 +30,7 @@ import {
 } from "@mdxeditor/editor";
 import { basicDark } from "cm6-theme-basic-dark";
 import { useTheme } from "next-themes";
+import { useEffect } from "react"; // Import useEffect
 import type { ForwardedRef } from "react";
 
 import "@mdxeditor/editor/style.css";
@@ -46,9 +47,15 @@ const Editor = ({ value, editorRef, fieldChange, ...props }: Props) => {
 
   const theme = resolvedTheme === "dark" ? [basicDark] : [];
 
+ 
+  useEffect(() => {
+    if (editorRef && typeof editorRef !== "function" && editorRef.current) {
+      editorRef.current.setMarkdown(value);
+    }
+  }, [value]);
+
   return (
     <MDXEditor
-      key={resolvedTheme}
       markdown={value}
       ref={editorRef}
       className="background-light800_dark200 light-border-2 markdown-editor dark-editor grid w-full border"
