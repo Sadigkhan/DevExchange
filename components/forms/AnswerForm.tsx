@@ -103,10 +103,10 @@ const AnswerForm = ({ questionId, questionTitle, questionContent }: Props) => {
 
       // Set the form value
       form.setValue("content", formattedAnswer);
-
+  
       // Trigger validation
       await form.trigger("content");
-
+  
       // Set the editor value
       if (editorRef.current) {
         editorRef.current.setMarkdown(formattedAnswer);
